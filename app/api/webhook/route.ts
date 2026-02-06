@@ -21,8 +21,10 @@ export async function POST(req: NextRequest) {
         console.log('📦 Webhook payload received:', payload);
 
         // 2. Verificar se pagamento foi aprovado
-        if (payload.status !== 'approved' && payload.status !== 'paid') {
-            console.log('⏳ Payment not approved yet:', payload.status);
+        const status = payload.payment?.status || payload.status;
+
+        if (status !== 'approved' && status !== 'paid') {
+            console.log('⏳ Payment not approved yet:', status);
             return NextResponse.json({ message: 'Payment not approved' });
         }
 
