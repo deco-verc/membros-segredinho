@@ -4,7 +4,7 @@ import ProgressCard from '@/components/dashboard/ProgressCard';
 import ModuleCard from '@/components/dashboard/ModuleCard';
 
 export default async function DashboardPage() {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     // Note: Redirect is handled in layout, but safe to keep checking user here if needed for queries
@@ -16,7 +16,7 @@ export default async function DashboardPage() {
         .eq('id', user.id)
         .single();
 
-    const quizData = userData?.quiz_data || {};
+    const quizData: any = userData?.quiz_data || {};
     const nome = quizData.nome || userData?.nome || 'Usuária';
     const meta = quizData.metaKg || 10;
     const peso = quizData.peso || 70;

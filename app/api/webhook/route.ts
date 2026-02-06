@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
         }
 
         // 3. Extrair dados do quiz do metadata
-        let quizData = {};
+        let quizData: any = {};
 
         if (metadata.quiz_data) {
             try {
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
         console.error('❌ Webhook error:', error);
         return NextResponse.json({
             error: 'Internal server error',
-            details: error.message
+            details: (error as any).message
         }, { status: 500 });
     }
 }

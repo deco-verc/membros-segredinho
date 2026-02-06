@@ -2,10 +2,10 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { calcularDosePersonalizada } from '@/lib/utils/calculateDose';
 import { Clock, Info, CheckCircle, AlertCircle, ShoppingBag, DollarSign } from 'lucide-react';
-import { Badge } from '@/components/dashboard/Sidebar'; // Assuming I can export Badge or just use tailwind. I'll just use tailwind.
+
 
 export default async function ProtocoloPage() {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) redirect('/login');
