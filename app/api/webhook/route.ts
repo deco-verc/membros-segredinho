@@ -98,19 +98,27 @@ export async function POST(req: NextRequest) {
 
         console.log('✅ Initial progress created');
 
-        // 7. Enviar magic link por email
-        const { error: linkError } = await supabaseAdmin.auth.admin.generateLink({
-            type: 'magiclink',
+        // 7. Gerar senha temporária e enviar link de acesso direto
+        const tempPassword = Math.random().toString(36).slice(-12) + 'Aa1!';
+
+        // Atualizar usuário com senha temporária
+        await supabaseAdmin.auth.admin.updateUserById(authData.user.id, {
+            password: tempPassword
+        });
+
+        // Gerar link de reset de senha (que faz login automático)
+        const { data: resetData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
+            type: 'recovery',
             email: email,
             options: {
-                redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard`,
+                redirectTo: 'https://areademembrossegredinhoapp.vercel.app/dashboard',
             }
         });
 
         if (linkError) {
-            console.error('❌ Error sending magic link:', linkError);
+            console.error('❌ Error sending access link:', linkError);
         } else {
-            console.log('✅ Magic link sent to:', email);
+            console.log('✅ Access link sent to:', email);
         }
 
         return NextResponse.json({
