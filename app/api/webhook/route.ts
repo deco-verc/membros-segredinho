@@ -8,9 +8,11 @@ const supabaseAdmin = createClient(
 
 export async function POST(req: NextRequest) {
     try {
-        // 1. Validar webhook secret
-        const secret = req.headers.get('x-webhook-secret');
-        if (secret !== process.env.EFIBANK_WEBHOOK_SECRET) {
+        // 1. Validar webhook secret (via Header OU URL Query Param)
+        const secretHeader = req.headers.get('x-webhook-secret');
+        const secretQuery = req.nextUrl.searchParams.get('secret');
+
+        if (secretHeader !== process.env.EFIBANK_WEBHOOK_SECRET && secretQuery !== process.env.EFIBANK_WEBHOOK_SECRET) {
             console.error('❌ Webhook unauthorized');
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
