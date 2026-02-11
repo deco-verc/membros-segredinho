@@ -1,8 +1,7 @@
 
-'use client'; // Client Component
+'use client';
 
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // Ajuste conforme seus componentes base
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 

@@ -3,8 +3,6 @@
 
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client'; // Ajuste conforme seu client
-import { Button } from '@/components/ui/button'; // Se existir
-import { Input } from '@/components/ui/input'; // Se existir
 import { toast } from 'sonner'; // Se estiver usando sonner
 import { Loader2, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
