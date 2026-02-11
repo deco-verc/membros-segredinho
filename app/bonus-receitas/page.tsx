@@ -163,5 +163,6 @@ export default function BonusReceitasPage() {
                 </AnimatePresence>
 
             </div>
-            );
+        </div>
+    );
 }
