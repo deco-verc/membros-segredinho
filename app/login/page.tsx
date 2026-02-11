@@ -26,8 +26,9 @@ export default function LoginPage() {
             if (error) throw error;
             setSent(true);
             toast.success('Link de acesso enviado!');
-        } catch (error) {
-            toast.error('Erro ao enviar link. Tente novamente.');
+        } catch (error: any) {
+            // Mostra o erro real vindo do Supabase (ex: Rate limit, Config, etc)
+            toast.error(error.message || 'Erro ao enviar link. Tente novamente.');
             console.error(error);
         } finally {
             setIsLoading(false);
